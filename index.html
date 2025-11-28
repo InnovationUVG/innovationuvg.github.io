@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <title>Listado Cursos UVG</title>
 <style>
-body { font-family: Arial; font-size:11px; background:#f5f5f5; }
+body { font-family: Arial, sans-serif; font-size:11px; background:#f5f5f5; }
 header {
   background:#00c238; color:white; padding:20px;
   font-size:24px; text-align:center;
@@ -26,35 +26,38 @@ tbody tr:hover { background:#e8ffe8; }
 </style>
 
 <script>
+function normalize(str){
+  return str.normalize('NFD').replace(/\p{Diacritic}/gu,"");
+}
+
 function filterTable() {
-  let cursoVal=document.getElementById("searchCurso").value.toLowerCase();
-  let restrVal=document.getElementById("searchRestr").value.toLowerCase();
-  let diaVal=document.getElementById("searchDia").value.toLowerCase().trim();
+  let curso=document.getElementById("searchCurso").value.toLowerCase();
+  let restr=document.getElementById("searchRestr").value.toLowerCase();
+  let dia=document.getElementById("searchDia").value.toLowerCase().trim();
   let rows=document.querySelectorAll("tbody tr");
 
   rows.forEach(r=>{
-    let txtCurso=r.dataset.curso||"";
-    let txtCode=r.dataset.code||"";
-    let txtRest=r.dataset.rest||"";
+    let c=r.dataset.curso||"";
+    let code=r.dataset.code||"";
+    let rt=r.dataset.rest||"";
     let days=(r.dataset.days||"");
 
-    let matchCurso=cursoVal? (txtCurso.includes(cursoVal)||txtCode.includes(cursoVal)):true;
-    let matchRest=restrVal? txtRest.includes(restrVal):true;
+    let m1 = curso ? (c.includes(curso) || code.includes(curso)) : true;
+    let m2 = restr ? rt.includes(restr) : true;
+    let m3 = true;
 
-    let matchDia=true;
-    if(diaVal){
-      let d=diaVal.normalize('NFD').replace(/[̀-ͯ]/g,"").toUpperCase();
+    if(dia){
+      let d = normalize(dia).toUpperCase();
       if(d.startsWith("LU")) d="LU";
       else if(d.startsWith("MA")) d="MA";
       else if(d.startsWith("MI")) d="MI";
       else if(d.startsWith("JU")) d="JU";
       else if(d.startsWith("VI")) d="VI";
       else if(d.startsWith("SA")) d="SA";
-      let nd=days.normalize('NFD').replace(/[̀-ͯ]/g,"");
-      matchDia=nd.includes(d);
+      m3 = days.toUpperCase().includes(d);
     }
 
-    r.style.display=(matchCurso&&matchRest&&matchDia)?"":"none";
+    r.style.display = (m1 && m2 && m3) ? "" : "none";
   });
 }
 </script>
@@ -479,7 +482,7 @@ function filterTable() {
 <tr data-curso="innovación y enfoques integradores para el aprendizaje"
     data-code="eb2130"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EB2130</td><td>INNOVACIÓN Y ENFOQUES INTEGRADORES PARA EL APRENDIZAJE</td><td>11</td><td>RAMÍREZ YOJCÓN, GLARETT MARIANELA</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -488,7 +491,7 @@ function filterTable() {
 <tr data-curso="innovación y enfoques integradores para el aprendizaje"
     data-code="eb2130"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EB2130</td><td>INNOVACIÓN Y ENFOQUES INTEGRADORES PARA EL APRENDIZAJE</td><td>21</td><td>OVALLE LÓPEZ, MARÍA DE LOS ANGELES</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -569,7 +572,7 @@ function filterTable() {
 <tr data-curso="estadística inferencial"
     data-code="ed1052"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>ED1052</td><td>ESTADÍSTICA INFERENCIAL</td><td>11</td><td>-</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -587,7 +590,7 @@ function filterTable() {
 <tr data-curso="investigación cuantitativa"
     data-code="ed1053"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>ED1053</td><td>INVESTIGACIÓN CUANTITATIVA</td><td>11</td><td>-</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -641,7 +644,7 @@ function filterTable() {
 <tr data-curso="investigación cualitativa"
     data-code="ed1054"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>ED1054</td><td>INVESTIGACIÓN CUALITATIVA</td><td>11</td><td>-</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -650,7 +653,7 @@ function filterTable() {
 <tr data-curso="investigación cualitativa"
     data-code="ed1054"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>ED1054</td><td>INVESTIGACIÓN CUALITATIVA</td><td>21</td><td>-</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -758,7 +761,7 @@ function filterTable() {
 <tr data-curso="oral communication and pronunciation"
     data-code="ei3250"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI3250</td><td>ORAL COMMUNICATION AND PRONUNCIATION</td><td>11</td><td>-</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -983,7 +986,7 @@ function filterTable() {
 <tr data-curso="developing receptive skills in elt"
     data-code="ei3254"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI3254</td><td>DEVELOPING RECEPTIVE SKILLS IN ELT</td><td>11</td><td>-</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -1028,7 +1031,7 @@ function filterTable() {
 <tr data-curso="bases del desarrollo de la comunicación"
     data-code="ej3195"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3195</td><td>BASES DEL DESARROLLO DE LA COMUNICACIÓN</td><td>11</td><td>MANZO CALDERÓN DE PAZ, ELSA REGINA DE LOS ANGELES</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -1037,7 +1040,7 @@ function filterTable() {
 <tr data-curso="bases del desarrollo de la comunicación"
     data-code="ej3195"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3195</td><td>BASES DEL DESARROLLO DE LA COMUNICACIÓN</td><td>21</td><td>-</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -1064,7 +1067,7 @@ function filterTable() {
 <tr data-curso="caracterizacón y estrategias de atención a personas con discapacidad física y dificultades motoras"
     data-code="ej3200"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3200</td><td>CARACTERIZACÓN Y ESTRATEGIAS DE ATENCIÓN A PERSONAS CON DISCAPACIDAD FÍSICA Y DIFICULTADES MOTORAS</td><td>11</td><td>ROJAS SANDOVAL, KEVIN RENATO</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -1118,7 +1121,7 @@ function filterTable() {
 <tr data-curso="matemática y su aprendizaje"
     data-code="em3184"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EM3184</td><td>MATEMÁTICA Y SU APRENDIZAJE</td><td>11</td><td>ROJAS SANDOVAL, ANA VIRGINIA</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -1136,7 +1139,7 @@ function filterTable() {
 <tr data-curso="metodologías y tecnologías en educación musical"
     data-code="eu3107"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EU3107</td><td>METODOLOGÍAS Y TECNOLOGÍAS EN EDUCACIÓN MUSICAL</td><td>11</td><td>-</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -1271,7 +1274,7 @@ function filterTable() {
 <tr data-curso="piano 1 - técnica instrumental"
     data-code="eu3109"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EU3109</td><td>PIANO 1 - TÉCNICA INSTRUMENTAL</td><td>11</td><td>VELÁSQUEZ DÁVILA, RICARDO ALBERTO</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -1307,7 +1310,7 @@ function filterTable() {
 <tr data-curso="práctica docente 2"
     data-code="eu3119"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EU3119</td><td>PRÁCTICA DOCENTE 2</td><td>11</td><td>GALICIA SILVA, CARLOS AUGUSTO</td>
 <td>07:00</td><td>09:15</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -1991,7 +1994,7 @@ function filterTable() {
 <tr data-curso="ciudadanía global"
     data-code="cu171"
     data-rest="profesorado especializado en educacion inclusiva"
-    data-days="SÁ">
+    data-days="SA">
 <td>CU171</td><td>CIUDADANÍA GLOBAL</td><td>170</td><td>-</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>PROFESORADO ESPECIALIZADO EN EDUCACION INCLUSIVA</td>
@@ -2000,7 +2003,7 @@ function filterTable() {
 <tr data-curso="ciudadanía global"
     data-code="cu171"
     data-rest="profesorado de enseñanza media especializado en english language teaching"
-    data-days="SÁ">
+    data-days="SA">
 <td>CU171</td><td>CIUDADANÍA GLOBAL</td><td>180</td><td>-</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>PROFESORADO DE ENSEÑANZA MEDIA ESPECIALIZADO EN ENGLISH LANGUAGE TEACHING</td>
@@ -2009,7 +2012,7 @@ function filterTable() {
 <tr data-curso="ciudadanía global"
     data-code="cu171"
     data-rest="profesorado especializado en problemas del aprendizaje"
-    data-days="SÁ">
+    data-days="SA">
 <td>CU171</td><td>CIUDADANÍA GLOBAL</td><td>190</td><td>-</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>PROFESORADO ESPECIALIZADO EN PROBLEMAS DEL APRENDIZAJE</td>
@@ -4772,7 +4775,7 @@ function filterTable() {
 <tr data-curso="diseño e innovación en ingeniería 1"
     data-code="ie3063"
     data-rest="licenciatura en ingenieria mecatronica"
-    data-days="SÁ">
+    data-days="SA">
 <td>IE3063</td><td>DISEÑO E INNOVACIÓN EN INGENIERÍA 1</td><td>11</td><td>-</td>
 <td>07:45</td><td>10:30</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>LICENCIATURA EN INGENIERIA MECATRONICA</td>
@@ -4799,7 +4802,7 @@ function filterTable() {
 <tr data-curso="diseño e innovación en ingeniería 1"
     data-code="ie3063"
     data-rest="licenciatura en ingenieria mecatronica"
-    data-days="SÁ">
+    data-days="SA">
 <td>IE3063</td><td>DISEÑO E INNOVACIÓN EN INGENIERÍA 1</td><td>31</td><td>-</td>
 <td>07:45</td><td>10:30</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>LICENCIATURA EN INGENIERIA MECATRONICA</td>
@@ -4817,7 +4820,7 @@ function filterTable() {
 <tr data-curso="diseño e innovación en ingeniería 1"
     data-code="ie3063"
     data-rest="licenciatura en ingenieria mecatronica"
-    data-days="SÁ">
+    data-days="SA">
 <td>IE3063</td><td>DISEÑO E INNOVACIÓN EN INGENIERÍA 1</td><td>41</td><td>-</td>
 <td>07:45</td><td>10:30</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>LICENCIATURA EN INGENIERIA MECATRONICA</td>
@@ -4835,7 +4838,7 @@ function filterTable() {
 <tr data-curso="diseño e innovación en ingeniería 1"
     data-code="ie3063"
     data-rest="licenciatura en ingenieria mecatronica"
-    data-days="SÁ">
+    data-days="SA">
 <td>IE3063</td><td>DISEÑO E INNOVACIÓN EN INGENIERÍA 1</td><td>51</td><td>-</td>
 <td>07:45</td><td>10:30</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>LICENCIATURA EN INGENIERIA MECATRONICA</td>
@@ -6374,7 +6377,7 @@ function filterTable() {
 <tr data-curso="práctica profesional 2"
     data-code="ej3216"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3216</td><td>PRÁCTICA PROFESIONAL 2</td><td>11</td><td>ROJAS SANDOVAL, KEVIN RENATO</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6383,7 +6386,7 @@ function filterTable() {
 <tr data-curso="práctica profesional 2"
     data-code="ej3216"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3216</td><td>PRÁCTICA PROFESIONAL 2</td><td>21</td><td>BARRIENTOS MORALES, NADIA AMANDA DEL ROSARIO</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6392,7 +6395,7 @@ function filterTable() {
 <tr data-curso="introducción a la psicometría"
     data-code="ej3202"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3202</td><td>INTRODUCCIÓN A LA PSICOMETRÍA</td><td>11</td><td>GARCÍA RAMÍREZ DE RAYMUNDO, CECILIA MARIA</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6401,7 +6404,7 @@ function filterTable() {
 <tr data-curso="formulación e implementación de proyectos educativos"
     data-code="ed3077"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>ED3077</td><td>FORMULACIÓN E IMPLEMENTACIÓN DE PROYECTOS EDUCATIVOS</td><td>11</td><td>-</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6410,7 +6413,7 @@ function filterTable() {
 <tr data-curso="the elt curriculum"
     data-code="ei2181"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2181</td><td>THE ELT CURRICULUM</td><td>11</td><td>-</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6419,7 +6422,7 @@ function filterTable() {
 <tr data-curso="dirección coral y técnica vocal"
     data-code="eu3117"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EU3117</td><td>DIRECCIÓN CORAL Y TÉCNICA VOCAL</td><td>11</td><td>-</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6428,7 +6431,7 @@ function filterTable() {
 <tr data-curso="matemática básica"
     data-code="em153"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EM153</td><td>MATEMÁTICA BÁSICA</td><td>11</td><td>VALENT CASTELLANOS, RYAN DAVID</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6437,7 +6440,7 @@ function filterTable() {
 <tr data-curso="matemática básica"
     data-code="em153"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EM153</td><td>MATEMÁTICA BÁSICA</td><td>21</td><td>-</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6446,7 +6449,7 @@ function filterTable() {
 <tr data-curso="matemática básica"
     data-code="em153"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EM153</td><td>MATEMÁTICA BÁSICA</td><td>31</td><td>MAYÉN PÉREZ, CARLOS ALFREDO</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6455,7 +6458,7 @@ function filterTable() {
 <tr data-curso="developing productive skills in elt"
     data-code="ei3253"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI3253</td><td>DEVELOPING PRODUCTIVE SKILLS IN ELT</td><td>11</td><td>-</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6464,7 +6467,7 @@ function filterTable() {
 <tr data-curso="assessing language skills"
     data-code="ei3256"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI3256</td><td>ASSESSING LANGUAGE SKILLS</td><td>11</td><td>-</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6473,7 +6476,7 @@ function filterTable() {
 <tr data-curso="medios de diagnóstico y rehabilitación del lenguaje"
     data-code="ej3198"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3198</td><td>MEDIOS DE DIAGNÓSTICO Y REHABILITACIÓN DEL LENGUAJE</td><td>11</td><td>ROJAS SANDOVAL, ANA VIRGINIA</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6482,7 +6485,7 @@ function filterTable() {
 <tr data-curso="professional practice 1"
     data-code="ei3261"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI3261</td><td>PROFESSIONAL PRACTICE 1</td><td>11</td><td>-</td>
 <td>09:45</td><td>13:30</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6491,7 +6494,7 @@ function filterTable() {
 <tr data-curso="armonía aplicada 1"
     data-code="eu3112"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EU3112</td><td>ARMONÍA APLICADA 1</td><td>11</td><td>MAZARIEGOS MONTERROSO, ARMANDO</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -6500,7 +6503,7 @@ function filterTable() {
 <tr data-curso="diseño universal del aprendizaje"
     data-code="ej127"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ127</td><td>DISEÑO UNIVERSAL DEL APRENDIZAJE</td><td>11</td><td>COSSICH VIELMAN DE SANTA CRUZ, IRMA</td>
 <td>09:45</td><td>12:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8480,7 +8483,7 @@ function filterTable() {
 <tr data-curso="evaluación psicopedagógica 2"
     data-code="ej3226"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3226</td><td>EVALUACIÓN PSICOPEDAGÓGICA 2</td><td>11</td><td>GARCÍA RAMÍREZ DE RAYMUNDO, CECILIA MARIA</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8489,7 +8492,7 @@ function filterTable() {
 <tr data-curso="managing classes"
     data-code="ei3221"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI3221</td><td>MANAGING CLASSES</td><td>11</td><td>-</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8498,7 +8501,7 @@ function filterTable() {
 <tr data-curso="inclusión educativa"
     data-code="ej3213"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3213</td><td>INCLUSIÓN EDUCATIVA</td><td>11</td><td>-</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8507,7 +8510,7 @@ function filterTable() {
 <tr data-curso="grammar and writing 1"
     data-code="ei3249"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI3249</td><td>GRAMMAR AND WRITING 1</td><td>11</td><td>-</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8516,7 +8519,7 @@ function filterTable() {
 <tr data-curso="observation and evaluation of teacher performance"
     data-code="ei3217"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI3217</td><td>OBSERVATION AND EVALUATION OF TEACHER PERFORMANCE</td><td>11</td><td>-</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8525,7 +8528,7 @@ function filterTable() {
 <tr data-curso="guitarra funcional y acompañamiento"
     data-code="eu3113"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EU3113</td><td>GUITARRA FUNCIONAL Y ACOMPAÑAMIENTO</td><td>11</td><td>-</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8534,7 +8537,7 @@ function filterTable() {
 <tr data-curso="bases psicomotoras y perceptivas del aprendizaje"
     data-code="ej3196"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3196</td><td>BASES PSICOMOTORAS Y PERCEPTIVAS DEL APRENDIZAJE</td><td>11</td><td>RODAS SANDOVAL, ALEJANDRA IZABEL SARAHÍ</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8543,7 +8546,7 @@ function filterTable() {
 <tr data-curso="bases psicomotoras y perceptivas del aprendizaje"
     data-code="ej3196"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3196</td><td>BASES PSICOMOTORAS Y PERCEPTIVAS DEL APRENDIZAJE</td><td>21</td><td>-</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8552,7 +8555,7 @@ function filterTable() {
 <tr data-curso="aprendizaje musical a través de la historia"
     data-code="eu3114"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EU3114</td><td>APRENDIZAJE MUSICAL A TRAVÉS DE LA HISTORIA</td><td>11</td><td>GALICIA SILVA, CARLOS AUGUSTO</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8561,7 +8564,7 @@ function filterTable() {
 <tr data-curso="lectoescritura rítmica, melódica y armónica 1"
     data-code="eu3108"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EU3108</td><td>LECTOESCRITURA RÍTMICA, MELÓDICA Y ARMÓNICA 1</td><td>11</td><td>-</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8570,7 +8573,7 @@ function filterTable() {
 <tr data-curso="atención a trastornos conductuales infantiles y de la adolescencia"
     data-code="ej3204"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3204</td><td>ATENCIÓN A TRASTORNOS CONDUCTUALES INFANTILES Y DE LA ADOLESCENCIA</td><td>11</td><td>JIMENEZ COLINDRES, MARIA FERNANDA</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -8579,7 +8582,7 @@ function filterTable() {
 <tr data-curso="atención a trastornos conductuales infantiles y de la adolescencia"
     data-code="ej3204"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EJ3204</td><td>ATENCIÓN A TRASTORNOS CONDUCTUALES INFANTILES Y DE LA ADOLESCENCIA</td><td>21</td><td>-</td>
 <td>12:45</td><td>15:00</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -12539,7 +12542,7 @@ function filterTable() {
 <tr data-curso="intermediate english b"
     data-code="ei2139"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2139</td><td>INTERMEDIATE ENGLISH B</td><td>10</td><td>-</td>
 <td>15:05</td><td>17:20</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -12575,7 +12578,7 @@ function filterTable() {
 <tr data-curso="intermediate english b"
     data-code="ei2139"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2139</td><td>INTERMEDIATE ENGLISH B</td><td>40</td><td>-</td>
 <td>15:05</td><td>16:35</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -12593,7 +12596,7 @@ function filterTable() {
 <tr data-curso="intermediate english b"
     data-code="ei2139"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2139</td><td>INTERMEDIATE ENGLISH B</td><td>60</td><td>-</td>
 <td>15:05</td><td>17:20</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -12611,7 +12614,7 @@ function filterTable() {
 <tr data-curso="pre-intermediate english a"
     data-code="ei2136"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2136</td><td>PRE-INTERMEDIATE ENGLISH A</td><td>10</td><td>-</td>
 <td>15:05</td><td>17:20</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -12638,7 +12641,7 @@ function filterTable() {
 <tr data-curso="beginner english a"
     data-code="ei2140"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2140</td><td>BEGINNER ENGLISH A</td><td>10</td><td>-</td>
 <td>15:05</td><td>17:20</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -12647,7 +12650,7 @@ function filterTable() {
 <tr data-curso="pre-intermediate english b"
     data-code="ei2137"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2137</td><td>PRE-INTERMEDIATE ENGLISH B</td><td>10</td><td>-</td>
 <td>15:05</td><td>17:20</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -12656,7 +12659,7 @@ function filterTable() {
 <tr data-curso="pre-intermediate english b"
     data-code="ei2137"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2137</td><td>PRE-INTERMEDIATE ENGLISH B</td><td>20</td><td>-</td>
 <td>15:05</td><td>17:20</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -12692,7 +12695,7 @@ function filterTable() {
 <tr data-curso="beginner english b"
     data-code="ei2135"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2135</td><td>BEGINNER ENGLISH B</td><td>10</td><td>-</td>
 <td>15:05</td><td>17:20</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -12701,7 +12704,7 @@ function filterTable() {
 <tr data-curso="intermediate english a"
     data-code="ei2138"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2138</td><td>INTERMEDIATE ENGLISH A</td><td>10</td><td>-</td>
 <td>15:05</td><td>17:20</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -12728,7 +12731,7 @@ function filterTable() {
 <tr data-curso="intermediate english a"
     data-code="ei2138"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2138</td><td>INTERMEDIATE ENGLISH A</td><td>40</td><td>-</td>
 <td>15:05</td><td>17:20</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -12755,7 +12758,7 @@ function filterTable() {
 <tr data-curso="intermediate english a"
     data-code="ei2138"
     data-rest="-"
-    data-days="SÁ">
+    data-days="SA">
 <td>EI2138</td><td>INTERMEDIATE ENGLISH A</td><td>70</td><td>-</td>
 <td>15:05</td><td>17:20</td><td>-</td><td>-</td>
 <td>-</td><td>-</td><td>-</td><td>X</td><td>-</td>
@@ -17997,6 +18000,1950 @@ function filterTable() {
 <td>TD3025</td><td>EXTERNADO EN EMPRESAS DIGITALES</td><td>11</td><td>-</td>
 <td>20:40</td><td>21:25</td><td>-</td><td>-</td>
 <td>-</td><td>X</td><td>-</td><td>-</td><td>LICENCIATURA EN ADMINISTRACION DE EMPRESAS CON ESPECIALIZACION EN TRANSFORMACION DIGITAL</td>
+</tr>
+
+<tr data-curso="economía de empresa"
+    data-code="ba6002"
+    data-rest="-"
+    data-days="">
+<td>BA6002</td><td>ECONOMÍA DE EMPRESA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="análisis de la economía global"
+    data-code="ba6006"
+    data-rest="-"
+    data-days="">
+<td>BA6006</td><td>ANÁLISIS DE LA ECONOMÍA GLOBAL</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión del talento humano"
+    data-code="ba6009"
+    data-rest="-"
+    data-days="">
+<td>BA6009</td><td>GESTIÓN DEL TALENTO HUMANO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="diseño y ejecución de la estrategia"
+    data-code="ba6010"
+    data-rest="-"
+    data-days="">
+<td>BA6010</td><td>DISEÑO Y EJECUCIÓN DE LA ESTRATEGIA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="innovación y emprendimiento"
+    data-code="ba6011"
+    data-rest="-"
+    data-days="">
+<td>BA6011</td><td>INNOVACIÓN Y EMPRENDIMIENTO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="finanzas corporativas e internacionales"
+    data-code="ba6012"
+    data-rest="-"
+    data-days="">
+<td>BA6012</td><td>FINANZAS CORPORATIVAS E INTERNACIONALES</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="marketing digital"
+    data-code="ba6015"
+    data-rest="-"
+    data-days="">
+<td>BA6015</td><td>MARKETING DIGITAL</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="bb3081"
+    data-rest="-"
+    data-days="">
+<td>BB3081</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="trabajo de graduación"
+    data-code="bb4015"
+    data-rest="-"
+    data-days="">
+<td>BB4015</td><td>TRABAJO DE GRADUACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional 1"
+    data-code="be3019"
+    data-rest="licenciatura en ingenieria biomedica"
+    data-days="">
+<td>BE3019</td><td>PRÁCTICA PROFESIONAL 1</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA BIOMEDICA</td>
+</tr>
+
+<tr data-curso="trabajo de graduación"
+    data-code="be4001"
+    data-rest="licenciatura en ingenieria biomedica"
+    data-days="">
+<td>BE4001</td><td>TRABAJO DE GRADUACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA BIOMEDICA</td>
+</tr>
+
+<tr data-curso="portafolio"
+    data-code="cp3019"
+    data-rest="licenciatura en composicion y produccion musical"
+    data-days="">
+<td>CP3019</td><td>PORTAFOLIO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN COMPOSICION Y PRODUCCION MUSICAL</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="cp3027"
+    data-rest="licenciatura en composicion y produccion musical"
+    data-days="">
+<td>CP3027</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>CALDERON, ERNESTO EUGENIO</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN COMPOSICION Y PRODUCCION MUSICAL</td>
+</tr>
+
+<tr data-curso="natación"
+    data-code="cu196"
+    data-rest="-"
+    data-days="">
+<td>CU196</td><td>NATACIÓN</td><td>11</td><td>AGUILAR CHÁVEZ, ALBY JOHANA</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="cognición y aprendizaje"
+    data-code="ec6016"
+    data-rest="-"
+    data-days="">
+<td>EC6016</td><td>COGNICIÓN Y APRENDIZAJE</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="teoría del curriculo"
+    data-code="ec6017"
+    data-rest="-"
+    data-days="">
+<td>EC6017</td><td>TEORÍA DEL CURRICULO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="diseño de currículo"
+    data-code="ec6018"
+    data-rest="-"
+    data-days="">
+<td>EC6018</td><td>DISEÑO DE CURRÍCULO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="investigación en educación"
+    data-code="ec6019"
+    data-rest="-"
+    data-days="">
+<td>EC6019</td><td>INVESTIGACIÓN EN EDUCACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="herramientas de coaching educativo"
+    data-code="ec6024"
+    data-rest="-"
+    data-days="">
+<td>EC6024</td><td>HERRAMIENTAS DE COACHING EDUCATIVO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="coaching educativo y sus multiples aplicaciones"
+    data-code="ec6025"
+    data-rest="-"
+    data-days="">
+<td>EC6025</td><td>COACHING EDUCATIVO Y SUS MULTIPLES APLICACIONES</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="aplicación de estrategias de coaching y gestión en el aula, diversidad e inclusión"
+    data-code="ec6026"
+    data-rest="-"
+    data-days="">
+<td>EC6026</td><td>APLICACIÓN DE ESTRATEGIAS DE COACHING Y GESTIÓN EN EL AULA, DIVERSIDAD E INCLUSIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="coaching para equipos educativos"
+    data-code="ec6027"
+    data-rest="-"
+    data-days="">
+<td>EC6027</td><td>COACHING PARA EQUIPOS EDUCATIVOS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión del potencial de la comunidad educativa"
+    data-code="ec6028"
+    data-rest="-"
+    data-days="">
+<td>EC6028</td><td>GESTIÓN DEL POTENCIAL DE LA COMUNIDAD EDUCATIVA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="diseño, implementación y evaluación de programas de coaching educativo"
+    data-code="ec6029"
+    data-rest="-"
+    data-days="">
+<td>EC6029</td><td>DISEÑO, IMPLEMENTACIÓN Y EVALUACIÓN DE PROGRAMAS DE COACHING EDUCATIVO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="portafolio"
+    data-code="ec6030"
+    data-rest="-"
+    data-days="">
+<td>EC6030</td><td>PORTAFOLIO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="fundamentos de coaching educativo"
+    data-code="ec6031"
+    data-rest="-"
+    data-days="">
+<td>EC6031</td><td>FUNDAMENTOS DE COACHING EDUCATIVO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="final degree work"
+    data-code="ei437"
+    data-rest="-"
+    data-days="">
+<td>EI437</td><td>FINAL DEGREE WORK</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="principios, objetivos y tendencias en la educación superior"
+    data-code="en6015"
+    data-rest="-"
+    data-days="">
+<td>EN6015</td><td>PRINCIPIOS, OBJETIVOS Y TENDENCIAS EN LA EDUCACIÓN SUPERIOR</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="integración de tecnologías en educación"
+    data-code="et6001"
+    data-rest="-"
+    data-days="">
+<td>ET6001</td><td>INTEGRACIÓN DE TECNOLOGÍAS EN EDUCACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="diseño de experiencias de aprendizaje con tecnología"
+    data-code="et6002"
+    data-rest="-"
+    data-days="">
+<td>ET6002</td><td>DISEÑO DE EXPERIENCIAS DE APRENDIZAJE CON TECNOLOGÍA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="seminario de tendencias en tecnología educativa"
+    data-code="et6003"
+    data-rest="-"
+    data-days="">
+<td>ET6003</td><td>SEMINARIO DE TENDENCIAS EN TECNOLOGÍA EDUCATIVA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="investigación aplicada a la práctica de tecnología educativa"
+    data-code="et6004"
+    data-rest="-"
+    data-days="">
+<td>ET6004</td><td>INVESTIGACIÓN APLICADA A LA PRÁCTICA DE TECNOLOGÍA EDUCATIVA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="trabajo de graduación"
+    data-code="ff4009"
+    data-rest="-"
+    data-days="">
+<td>FF4009</td><td>TRABAJO DE GRADUACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional 1"
+    data-code="hl3056"
+    data-rest="-"
+    data-days="">
+<td>HL3056</td><td>PRÁCTICA PROFESIONAL 1</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="diseño e innovación en ingeniería 1"
+    data-code="ia3021"
+    data-rest="-"
+    data-days="">
+<td>IA3021</td><td>DISEÑO E INNOVACIÓN EN INGENIERÍA 1</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="ia3044"
+    data-rest="licenciatura en ingenieria en ciencia de la administracion"
+    data-days="">
+<td>IA3044</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA EN CIENCIA DE LA ADMINISTRACION</td>
+</tr>
+
+<tr data-curso="statistical analysis"
+    data-code="ia6019"
+    data-rest="-"
+    data-days="">
+<td>IA6019</td><td>STATISTICAL ANALYSIS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="econometrics"
+    data-code="ia6021"
+    data-rest="-"
+    data-days="">
+<td>IA6021</td><td>ECONOMETRICS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="introduction to business analytics"
+    data-code="ia6022"
+    data-rest="-"
+    data-days="">
+<td>IA6022</td><td>INTRODUCTION TO BUSINESS ANALYTICS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="big data 2"
+    data-code="ia6027"
+    data-rest="-"
+    data-days="">
+<td>IA6027</td><td>BIG DATA 2</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="project management"
+    data-code="ia6031"
+    data-rest="-"
+    data-days="">
+<td>IA6031</td><td>PROJECT MANAGEMENT</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="final project"
+    data-code="ia6034"
+    data-rest="-"
+    data-days="">
+<td>IA6034</td><td>FINAL PROJECT</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="data mining 1"
+    data-code="ia6039"
+    data-rest="-"
+    data-days="">
+<td>IA6039</td><td>DATA MINING 1</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="text analytics"
+    data-code="ia6040"
+    data-rest="-"
+    data-days="">
+<td>IA6040</td><td>TEXT ANALYTICS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="data mining 2"
+    data-code="ia6041"
+    data-rest="-"
+    data-days="">
+<td>IA6041</td><td>DATA MINING 2</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="applied data science"
+    data-code="ia6042"
+    data-rest="-"
+    data-days="">
+<td>IA6042</td><td>APPLIED DATA SCIENCE</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="formulación y evaluación de proyectos"
+    data-code="ia6043"
+    data-rest="-"
+    data-days="">
+<td>IA6043</td><td>FORMULACIÓN Y EVALUACIÓN DE PROYECTOS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="introducción a la gestión de proyectos e integración"
+    data-code="ia6044"
+    data-rest="-"
+    data-days="">
+<td>IA6044</td><td>INTRODUCCIÓN A LA GESTIÓN DE PROYECTOS E INTEGRACIÓN</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión de las comunicaciones, interesados y las adquisiciones"
+    data-code="ia6051"
+    data-rest="-"
+    data-days="">
+<td>IA6051</td><td>GESTIÓN DE LAS COMUNICACIONES, INTERESADOS Y LAS ADQUISICIONES</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión del alcance"
+    data-code="ia6059"
+    data-rest="-"
+    data-days="">
+<td>IA6059</td><td>GESTIÓN DEL ALCANCE</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión de programas"
+    data-code="ia6064"
+    data-rest="-"
+    data-days="">
+<td>IA6064</td><td>GESTIÓN DE PROGRAMAS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión de operaciones"
+    data-code="ia6066"
+    data-rest="-"
+    data-days="">
+<td>IA6066</td><td>GESTIÓN DE OPERACIONES</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión ágil de proyectos"
+    data-code="ia6067"
+    data-rest="-"
+    data-days="">
+<td>IA6067</td><td>GESTIÓN ÁGIL DE PROYECTOS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="marco legal"
+    data-code="ia6069"
+    data-rest="-"
+    data-days="">
+<td>IA6069</td><td>MARCO LEGAL</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="ib3023"
+    data-rest="licenciatura en ingenieria en biotecnologia industrial"
+    data-days="">
+<td>IB3023</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>SILVA RODRIGUEZ, PABLO</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA EN BIOTECNOLOGIA INDUSTRIAL</td>
+</tr>
+
+<tr data-curso="trabajo de graduación"
+    data-code="ib4002"
+    data-rest="-"
+    data-days="">
+<td>IB4002</td><td>TRABAJO DE GRADUACIÓN</td><td>11</td><td>SILVA RODRIGUEZ, PABLO</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="ic3079"
+    data-rest="licenciatura en ingenieria civil / licenciatura en ingenieria civil arquitectonica"
+    data-days="">
+<td>IC3079</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA CIVIL / LICENCIATURA EN INGENIERIA CIVIL ARQUITECTONICA</td>
+</tr>
+
+<tr data-curso="trabajo de graduación"
+    data-code="ic4016"
+    data-rest="licenciatura en ingenieria civil arquitectonica"
+    data-days="">
+<td>IC4016</td><td>TRABAJO DE GRADUACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA CIVIL ARQUITECTONICA</td>
+</tr>
+
+<tr data-curso="análisis estructural avanzado"
+    data-code="ic6112"
+    data-rest="-"
+    data-days="">
+<td>IC6112</td><td>ANÁLISIS ESTRUCTURAL AVANZADO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="ingeniería geotécnica"
+    data-code="ic6113"
+    data-rest="-"
+    data-days="">
+<td>IC6113</td><td>INGENIERÍA GEOTÉCNICA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="estructuras de concreto presforzado 1"
+    data-code="ic6114"
+    data-rest="-"
+    data-days="">
+<td>IC6114</td><td>ESTRUCTURAS DE CONCRETO PRESFORZADO 1</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="cimentaciones"
+    data-code="ic6115"
+    data-rest="-"
+    data-days="">
+<td>IC6115</td><td>CIMENTACIONES</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="id3009"
+    data-rest="licenciatura en ingenieria en ciencia de los datos"
+    data-days="">
+<td>ID3009</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA EN CIENCIA DE LOS DATOS</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="ie3057"
+    data-rest="licenciatura en ingenieria electronica / licenciatura en ingenieria mecatronica"
+    data-days="">
+<td>IE3057</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA ELECTRONICA / LICENCIATURA EN INGENIERIA MECATRONICA</td>
+</tr>
+
+<tr data-curso="trabajo de graduación"
+    data-code="ie4010"
+    data-rest="licenciatura en ingenieria electronica"
+    data-days="">
+<td>IE4010</td><td>TRABAJO DE GRADUACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA ELECTRONICA</td>
+</tr>
+
+<tr data-curso="diseño e innovacion en ingeniería"
+    data-code="ii3065"
+    data-rest="-"
+    data-days="">
+<td>II3065</td><td>DISEÑO E INNOVACION EN INGENIERÍA</td><td>31</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="introducción al sistema de gestión integrado"
+    data-code="ii6011"
+    data-rest="-"
+    data-days="">
+<td>II6011</td><td>INTRODUCCIÓN AL SISTEMA DE GESTIÓN INTEGRADO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="liderazgo, estrategia y gestión del cambio"
+    data-code="ii6012"
+    data-rest="-"
+    data-days="">
+<td>II6012</td><td>LIDERAZGO, ESTRATEGIA Y GESTIÓN DEL CAMBIO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="evaluación y gestión de riesgos iso 31000"
+    data-code="ii6013"
+    data-rest="-"
+    data-days="">
+<td>II6013</td><td>EVALUACIÓN Y GESTIÓN DE RIESGOS ISO 31000</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión y evaluación de distemas de calidad iso 9001"
+    data-code="ii6014"
+    data-rest="-"
+    data-days="">
+<td>II6014</td><td>GESTIÓN Y EVALUACIÓN DE DISTEMAS DE CALIDAD ISO 9001</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gobernanza corporativa: diseño y gestión"
+    data-code="ii6020"
+    data-rest="-"
+    data-days="">
+<td>II6020</td><td>GOBERNANZA CORPORATIVA: DISEÑO Y GESTIÓN</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión del cumplimiento legal y normativo"
+    data-code="ii6021"
+    data-rest="-"
+    data-days="">
+<td>II6021</td><td>GESTIÓN DEL CUMPLIMIENTO LEGAL Y NORMATIVO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="diseño, implementación y medición del desempeño e informes"
+    data-code="ii6022"
+    data-rest="-"
+    data-days="">
+<td>II6022</td><td>DISEÑO, IMPLEMENTACIÓN Y MEDICIÓN DEL DESEMPEÑO E INFORMES</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="introducción a lean six sigma (yellow belt)"
+    data-code="ii6023"
+    data-rest="-"
+    data-days="">
+<td>II6023</td><td>INTRODUCCIÓN A LEAN SIX SIGMA (YELLOW BELT)</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión de procesos de auditoria y certificación iso 190011"
+    data-code="ii6024"
+    data-rest="-"
+    data-days="">
+<td>II6024</td><td>GESTIÓN DE PROCESOS DE AUDITORIA Y CERTIFICACIÓN ISO 190011</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="diseño e innovación en ingeniería 2"
+    data-code="im3034"
+    data-rest="licenciatura en ingenieria mecanica"
+    data-days="">
+<td>IM3034</td><td>DISEÑO E INNOVACIÓN EN INGENIERÍA 2</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA MECANICA</td>
+</tr>
+
+<tr data-curso="diseño e innovación en ingeniería 2"
+    data-code="im3034"
+    data-rest="licenciatura en ingenieria mecanica industrial"
+    data-days="">
+<td>IM3034</td><td>DISEÑO E INNOVACIÓN EN INGENIERÍA 2</td><td>21</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA MECANICA INDUSTRIAL</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="im3051"
+    data-rest="-"
+    data-days="">
+<td>IM3051</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>PINEDA DE LEÓN, GUSTAVO WALDEMAR</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="trabajo de graduación"
+    data-code="im4022"
+    data-rest="-"
+    data-days="">
+<td>IM4022</td><td>TRABAJO DE GRADUACIÓN</td><td>11</td><td>ROLDÁN REYES, LAURA MARÍA</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="iq3042"
+    data-rest="licenciatura en ingenieria quimica"
+    data-days="">
+<td>IQ3042</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>LIRA PRERA, JUAN JOSÉ</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA QUIMICA</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="iq3042"
+    data-rest="licenciatura en ingenieria quimica industrial"
+    data-days="">
+<td>IQ3042</td><td>PRÁCTICA PROFESIONAL</td><td>21</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA QUIMICA INDUSTRIAL</td>
+</tr>
+
+<tr data-curso="trabajo de graduacion"
+    data-code="iq4013"
+    data-rest="-"
+    data-days="">
+<td>IQ4013</td><td>TRABAJO DE GRADUACION</td><td>11</td><td>ORTÍZ PINEDA, CARMEN ALICIA</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="necesidad de la energia para el futuro"
+    data-code="iq6055"
+    data-rest="-"
+    data-days="">
+<td>IQ6055</td><td>NECESIDAD DE LA ENERGIA PARA EL FUTURO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="oportunidades y funcionamiento del mercado electrico en gt"
+    data-code="iq6056"
+    data-rest="-"
+    data-days="">
+<td>IQ6056</td><td>OPORTUNIDADES Y FUNCIONAMIENTO DEL MERCADO ELECTRICO EN GT</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="project management"
+    data-code="iq6061"
+    data-rest="-"
+    data-days="">
+<td>IQ6061</td><td>PROJECT MANAGEMENT</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="geotermia y su aplicacion"
+    data-code="iq6062"
+    data-rest="-"
+    data-days="">
+<td>IQ6062</td><td>GEOTERMIA Y SU APLICACION</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="las claves de las auditorias energeticas"
+    data-code="iq6064"
+    data-rest="-"
+    data-days="">
+<td>IQ6064</td><td>LAS CLAVES DE LAS AUDITORIAS ENERGETICAS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="presente y futuro de la energia hidraulica en gt"
+    data-code="iq6065"
+    data-rest="-"
+    data-days="">
+<td>IQ6065</td><td>PRESENTE Y FUTURO DE LA ENERGIA HIDRAULICA EN GT</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestion financiera en negocios energeticos"
+    data-code="iq6066"
+    data-rest="-"
+    data-days="">
+<td>IQ6066</td><td>GESTION FINANCIERA EN NEGOCIOS ENERGETICOS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="estrategias de negocio"
+    data-code="iq6067"
+    data-rest="-"
+    data-days="">
+<td>IQ6067</td><td>ESTRATEGIAS DE NEGOCIO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="liderazgo y getion de equipos"
+    data-code="iq6068"
+    data-rest="-"
+    data-days="">
+<td>IQ6068</td><td>LIDERAZGO Y GETION DE EQUIPOS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="proyecto de graduacion"
+    data-code="iq6069"
+    data-rest="-"
+    data-days="">
+<td>IQ6069</td><td>PROYECTO DE GRADUACION</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="bases de datos aplicadas a los negocios"
+    data-code="li2003"
+    data-rest="-"
+    data-days="">
+<td>LI2003</td><td>BASES DE DATOS APLICADAS A LOS NEGOCIOS</td><td>31</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="trabajo de graduación"
+    data-code="li4002"
+    data-rest="licenciatura en international marketing and business analytics"
+    data-days="">
+<td>LI4002</td><td>TRABAJO DE GRADUACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INTERNATIONAL MARKETING AND BUSINESS ANALYTICS</td>
+</tr>
+
+<tr data-curso="investigación aplicada 2"
+    data-code="md650"
+    data-rest="-"
+    data-days="">
+<td>MD650</td><td>INVESTIGACIÓN APLICADA 2</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="metodología 1"
+    data-code="md653"
+    data-rest="-"
+    data-days="">
+<td>MD653</td><td>METODOLOGÍA 1</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="metodología 2"
+    data-code="md654"
+    data-rest="-"
+    data-days="">
+<td>MD654</td><td>METODOLOGÍA 2</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="comunicación 1"
+    data-code="md655"
+    data-rest="-"
+    data-days="">
+<td>MD655</td><td>COMUNICACIÓN 1</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="comunicación 2"
+    data-code="md656"
+    data-rest="-"
+    data-days="">
+<td>MD656</td><td>COMUNICACIÓN 2</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="laboratorio de póliticas públicas"
+    data-code="md677"
+    data-rest="-"
+    data-days="">
+<td>MD677</td><td>LABORATORIO DE PÓLITICAS PÚBLICAS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="mortalidad"
+    data-code="md693"
+    data-rest="-"
+    data-days="">
+<td>MD693</td><td>MORTALIDAD</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="migraciones"
+    data-code="md694"
+    data-rest="-"
+    data-days="">
+<td>MD694</td><td>MIGRACIONES</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="proyecciones demográficas"
+    data-code="md695"
+    data-rest="-"
+    data-days="">
+<td>MD695</td><td>PROYECCIONES DEMOGRÁFICAS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="administración pública"
+    data-code="md696"
+    data-rest="-"
+    data-days="">
+<td>MD696</td><td>ADMINISTRACIÓN PÚBLICA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="política económica"
+    data-code="md697"
+    data-rest="-"
+    data-days="">
+<td>MD697</td><td>POLÍTICA ECONÓMICA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="bioestadistica 1"
+    data-code="me638"
+    data-rest="-"
+    data-days="">
+<td>ME638</td><td>BIOESTADISTICA 1</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="metodos epidemiologicos 1"
+    data-code="me639"
+    data-rest="-"
+    data-days="">
+<td>ME639</td><td>METODOS EPIDEMIOLOGICOS 1</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="vigilancia de la salud publica"
+    data-code="me640"
+    data-rest="-"
+    data-days="">
+<td>ME640</td><td>VIGILANCIA DE LA SALUD PUBLICA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="evaluacion economica de programas"
+    data-code="me641"
+    data-rest="-"
+    data-days="">
+<td>ME641</td><td>EVALUACION ECONOMICA DE PROGRAMAS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="metodos epidemiologicos 2"
+    data-code="me642"
+    data-rest="-"
+    data-days="">
+<td>ME642</td><td>METODOS EPIDEMIOLOGICOS 2</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="tecnicas de investigacion"
+    data-code="me643"
+    data-rest="-"
+    data-days="">
+<td>ME643</td><td>TECNICAS DE INVESTIGACION</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="trabajo de graduación"
+    data-code="mt4009"
+    data-rest="licenciatura en ingenieria mecatronica"
+    data-days="">
+<td>MT4009</td><td>TRABAJO DE GRADUACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN INGENIERIA MECATRONICA</td>
+</tr>
+
+<tr data-curso="gastronomía emocional"
+    data-code="nc6010"
+    data-rest="-"
+    data-days="">
+<td>NC6010</td><td>GASTRONOMÍA EMOCIONAL</td><td>11</td><td>ROSAL MARTÍNEZ, ANA ISABEL</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="coaching nutricional y health coaching. contexto, fundamentos teóricos y evidencia científica"
+    data-code="nc6013"
+    data-rest="-"
+    data-days="">
+<td>NC6013</td><td>COACHING NUTRICIONAL Y HEALTH COACHING. CONTEXTO, FUNDAMENTOS TEÓRICOS Y EVIDENCIA CIENTÍFICA</td><td>10</td><td>ROSAL MARTÍNEZ, ANA ISABEL</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="el proceso de coaching"
+    data-code="nc6014"
+    data-rest="-"
+    data-days="">
+<td>NC6014</td><td>EL PROCESO DE COACHING</td><td>10</td><td>ROSAL MARTÍNEZ, ANA ISABEL</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="herramientas de coaching nutricional y health coaching"
+    data-code="nc6015"
+    data-rest="-"
+    data-days="">
+<td>NC6015</td><td>HERRAMIENTAS DE COACHING NUTRICIONAL Y HEALTH COACHING</td><td>11</td><td>ROSAL MARTÍNEZ, ANA ISABEL</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="laboratorio de coaching nutricional"
+    data-code="nc6016"
+    data-rest="-"
+    data-days="">
+<td>NC6016</td><td>LABORATORIO DE COACHING NUTRICIONAL</td><td>11</td><td>ROSAL MARTÍNEZ, ANA ISABEL</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="inteligencia emocional"
+    data-code="nc6017"
+    data-rest="-"
+    data-days="">
+<td>NC6017</td><td>INTELIGENCIA EMOCIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="valoración funcional del deportista"
+    data-code="nd6002"
+    data-rest="-"
+    data-days="">
+<td>ND6002</td><td>VALORACIÓN FUNCIONAL DEL DEPORTISTA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="valoración nutricional del deportista"
+    data-code="nd6003"
+    data-rest="-"
+    data-days="">
+<td>ND6003</td><td>VALORACIÓN NUTRICIONAL DEL DEPORTISTA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="planificación nutricional en el deporte"
+    data-code="nd6005"
+    data-rest="-"
+    data-days="">
+<td>ND6005</td><td>PLANIFICACIÓN NUTRICIONAL EN EL DEPORTE</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="nutrición en el deporte"
+    data-code="nd6006"
+    data-rest="-"
+    data-days="">
+<td>ND6006</td><td>NUTRICIÓN EN EL DEPORTE</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="laboratorio de nutrición en el deporte"
+    data-code="nd6007"
+    data-rest="-"
+    data-days="">
+<td>ND6007</td><td>LABORATORIO DE NUTRICIÓN EN EL DEPORTE</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="estudio de casos de nutrición deportiva"
+    data-code="nd6008"
+    data-rest="-"
+    data-days="">
+<td>ND6008</td><td>ESTUDIO DE CASOS DE NUTRICIÓN DEPORTIVA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="nn3065"
+    data-rest="licenciatura en nutricion"
+    data-days="">
+<td>NN3065</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>GONZALEZ BARRANTES, MARÍA PATRICIA</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN NUTRICION</td>
+</tr>
+
+<tr data-curso="análisis de la personalidad"
+    data-code="pn6002"
+    data-rest="-"
+    data-days="">
+<td>PN6002</td><td>ANÁLISIS DE LA PERSONALIDAD</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="comportamiento y personalidad"
+    data-code="pn6003"
+    data-rest="-"
+    data-days="">
+<td>PN6003</td><td>COMPORTAMIENTO Y PERSONALIDAD</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="perfilado indirecto de la personalidad, el cnv"
+    data-code="pn6004"
+    data-rest="-"
+    data-days="">
+<td>PN6004</td><td>PERFILADO INDIRECTO DE LA PERSONALIDAD, EL CNV</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="perfilado indirecto de personalidad, comportamiento escrito y lingüístico"
+    data-code="pn6005"
+    data-rest="-"
+    data-days="">
+<td>PN6005</td><td>PERFILADO INDIRECTO DE PERSONALIDAD, COMPORTAMIENTO ESCRITO Y LINGÜÍSTICO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="métodos alternativos de resolución de conflictos desde lo legal"
+    data-code="pn6011"
+    data-rest="-"
+    data-days="">
+<td>PN6011</td><td>MÉTODOS ALTERNATIVOS DE RESOLUCIÓN DE CONFLICTOS DESDE LO LEGAL</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="metodología para una mediación y conciliacion efectiva"
+    data-code="pn6012"
+    data-rest="-"
+    data-days="">
+<td>PN6012</td><td>METODOLOGÍA PARA UNA MEDIACIÓN Y CONCILIACION EFECTIVA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="trabajo final de mediación"
+    data-code="pn6013"
+    data-rest="-"
+    data-days="">
+<td>PN6013</td><td>TRABAJO FINAL DE MEDIACIÓN</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="coaching empresarial"
+    data-code="pp6132"
+    data-rest="-"
+    data-days="">
+<td>PP6132</td><td>COACHING EMPRESARIAL</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="competencias multiculturales y éticas"
+    data-code="pp6134"
+    data-rest="-"
+    data-days="">
+<td>PP6134</td><td>COMPETENCIAS MULTICULTURALES Y ÉTICAS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="competencias en la evaluación y diagnóstico"
+    data-code="pp6137"
+    data-rest="-"
+    data-days="">
+<td>PP6137</td><td>COMPETENCIAS EN LA EVALUACIÓN Y DIAGNÓSTICO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="semiología en neuropsicología"
+    data-code="pp6138"
+    data-rest="-"
+    data-days="">
+<td>PP6138</td><td>SEMIOLOGÍA EN NEUROPSICOLOGÍA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="desórdenes en neurodesarrollo"
+    data-code="pp6139"
+    data-rest="-"
+    data-days="">
+<td>PP6139</td><td>DESÓRDENES EN NEURODESARROLLO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="artes expresivas aplicadas a la consejeria psicologica y psicoterapia"
+    data-code="pp6190"
+    data-rest="-"
+    data-days="">
+<td>PP6190</td><td>ARTES EXPRESIVAS APLICADAS A LA CONSEJERIA PSICOLOGICA Y PSICOTERAPIA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="arte y creatividad"
+    data-code="pp6191"
+    data-rest="-"
+    data-days="">
+<td>PP6191</td><td>ARTE Y CREATIVIDAD</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="expresion corporal"
+    data-code="pp6192"
+    data-rest="-"
+    data-days="">
+<td>PP6192</td><td>EXPRESION CORPORAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="fundamentos de arte terapia y competencias para la intervencion"
+    data-code="pp6193"
+    data-rest="-"
+    data-days="">
+<td>PP6193</td><td>FUNDAMENTOS DE ARTE TERAPIA Y COMPETENCIAS PARA LA INTERVENCION</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="focusing y artes expresivas"
+    data-code="pp6194"
+    data-rest="-"
+    data-days="">
+<td>PP6194</td><td>FOCUSING Y ARTES EXPRESIVAS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="fundamentos de consejería psicológica y psicoterapia"
+    data-code="pp6200"
+    data-rest="-"
+    data-days="">
+<td>PP6200</td><td>FUNDAMENTOS DE CONSEJERÍA PSICOLÓGICA Y PSICOTERAPIA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="sexualidad y género"
+    data-code="pp6201"
+    data-rest="-"
+    data-days="">
+<td>PP6201</td><td>SEXUALIDAD Y GÉNERO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="abordajes actuales en neuropsicofarmacología"
+    data-code="pp6209"
+    data-rest="-"
+    data-days="">
+<td>PP6209</td><td>ABORDAJES ACTUALES EN NEUROPSICOFARMACOLOGÍA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="supervisión en consejería y psicoterapia"
+    data-code="pp6216"
+    data-rest="-"
+    data-days="">
+<td>PP6216</td><td>SUPERVISIÓN EN CONSEJERÍA Y PSICOTERAPIA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="perspectivas teóricas de la terapia familiar i"
+    data-code="pp6219"
+    data-rest="-"
+    data-days="">
+<td>PP6219</td><td>PERSPECTIVAS TEÓRICAS DE LA TERAPIA FAMILIAR I</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="la familia como un sistema biopsicosocial"
+    data-code="pp6220"
+    data-rest="-"
+    data-days="">
+<td>PP6220</td><td>LA FAMILIA COMO UN SISTEMA BIOPSICOSOCIAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="modelos básicos de terapia familiar"
+    data-code="pp6221"
+    data-rest="-"
+    data-days="">
+<td>PP6221</td><td>MODELOS BÁSICOS DE TERAPIA FAMILIAR</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="perspectivas teóricas de la terapia familiar ii"
+    data-code="pp6222"
+    data-rest="-"
+    data-days="">
+<td>PP6222</td><td>PERSPECTIVAS TEÓRICAS DE LA TERAPIA FAMILIAR II</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="etapas de la relación de pareja"
+    data-code="pp6223"
+    data-rest="-"
+    data-days="">
+<td>PP6223</td><td>ETAPAS DE LA RELACIÓN DE PAREJA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="intervenciones neuropsicoterapéuticas"
+    data-code="pp6231"
+    data-rest="-"
+    data-days="">
+<td>PP6231</td><td>INTERVENCIONES NEUROPSICOTERAPÉUTICAS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="evaluación y diagnóstico neuropsicológico del adulto mayor"
+    data-code="pp6232"
+    data-rest="-"
+    data-days="">
+<td>PP6232</td><td>EVALUACIÓN Y DIAGNÓSTICO NEUROPSICOLÓGICO DEL ADULTO MAYOR</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="casos supervisados de evaluación"
+    data-code="pp6234"
+    data-rest="-"
+    data-days="">
+<td>PP6234</td><td>CASOS SUPERVISADOS DE EVALUACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="fundamentos de neuropsicología"
+    data-code="pp6240"
+    data-rest="-"
+    data-days="">
+<td>PP6240</td><td>FUNDAMENTOS DE NEUROPSICOLOGÍA</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="bases neuroanatómicas y funcionales del sn"
+    data-code="pp6241"
+    data-rest="-"
+    data-days="">
+<td>PP6241</td><td>BASES NEUROANATÓMICAS Y FUNCIONALES DEL SN</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="neurociencia del desarrollo"
+    data-code="pp6242"
+    data-rest="-"
+    data-days="">
+<td>PP6242</td><td>NEUROCIENCIA DEL DESARROLLO</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="trabajo de graduación"
+    data-code="qa4015"
+    data-rest="-"
+    data-days="">
+<td>QA4015</td><td>TRABAJO DE GRADUACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="innovation management"
+    data-code="qa6118"
+    data-rest="-"
+    data-days="">
+<td>QA6118</td><td>INNOVATION MANAGEMENT</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="legislación de alimentos"
+    data-code="qa6119"
+    data-rest="-"
+    data-days="">
+<td>QA6119</td><td>LEGISLACIÓN DE ALIMENTOS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="contabilidad gerencial"
+    data-code="qa6120"
+    data-rest="-"
+    data-days="">
+<td>QA6120</td><td>CONTABILIDAD GERENCIAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="market research &amp; data analytics"
+    data-code="qa6121"
+    data-rest="-"
+    data-days="">
+<td>QA6121</td><td>MARKET RESEARCH & DATA ANALYTICS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="food retailing"
+    data-code="qa6122"
+    data-rest="-"
+    data-days="">
+<td>QA6122</td><td>FOOD RETAILING</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="estrategia financiera"
+    data-code="qa6123"
+    data-rest="-"
+    data-days="">
+<td>QA6123</td><td>ESTRATEGIA FINANCIERA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="brand management"
+    data-code="qa6124"
+    data-rest="-"
+    data-days="">
+<td>QA6124</td><td>BRAND MANAGEMENT</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="comercio internacional de alimentos"
+    data-code="qa6125"
+    data-rest="-"
+    data-days="">
+<td>QA6125</td><td>COMERCIO INTERNACIONAL DE ALIMENTOS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="food business project"
+    data-code="qa6126"
+    data-rest="-"
+    data-days="">
+<td>QA6126</td><td>FOOD BUSINESS PROJECT</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="inocuidad y microbiología de alimentos"
+    data-code="qa6127"
+    data-rest="-"
+    data-days="">
+<td>QA6127</td><td>INOCUIDAD Y MICROBIOLOGÍA DE ALIMENTOS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="sistemas de gestión de calidad"
+    data-code="qa6128"
+    data-rest="-"
+    data-days="">
+<td>QA6128</td><td>SISTEMAS DE GESTIÓN DE CALIDAD</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="ingeniería de procesos"
+    data-code="qa6129"
+    data-rest="-"
+    data-days="">
+<td>QA6129</td><td>INGENIERÍA DE PROCESOS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="tecnología de empaques"
+    data-code="qa6130"
+    data-rest="-"
+    data-days="">
+<td>QA6130</td><td>TECNOLOGÍA DE EMPAQUES</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="biotecnología de alimentos"
+    data-code="qa6131"
+    data-rest="-"
+    data-days="">
+<td>QA6131</td><td>BIOTECNOLOGÍA DE ALIMENTOS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="formulación e innovación en alimentos"
+    data-code="qa6132"
+    data-rest="-"
+    data-days="">
+<td>QA6132</td><td>FORMULACIÓN E INNOVACIÓN EN ALIMENTOS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="tendencias en ingredientes nutricionales"
+    data-code="qa6133"
+    data-rest="-"
+    data-days="">
+<td>QA6133</td><td>TENDENCIAS EN INGREDIENTES NUTRICIONALES</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="evaluación sensorial"
+    data-code="qa6134"
+    data-rest="-"
+    data-days="">
+<td>QA6134</td><td>EVALUACIÓN SENSORIAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="desarrollo de nuevos productos"
+    data-code="qa6135"
+    data-rest="-"
+    data-days="">
+<td>QA6135</td><td>DESARROLLO DE NUEVOS PRODUCTOS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="qf3044"
+    data-rest="licenciatura en quimica farmaceutica"
+    data-days="">
+<td>QF3044</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN QUIMICA FARMACEUTICA</td>
+</tr>
+
+<tr data-curso="trabajo de graduación"
+    data-code="qf4023"
+    data-rest="-"
+    data-days="">
+<td>QF4023</td><td>TRABAJO DE GRADUACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="conceptos y elementos fundamentales de buenas prácticas de manufactura"
+    data-code="qf6033"
+    data-rest="-"
+    data-days="">
+<td>QF6033</td><td>CONCEPTOS Y ELEMENTOS FUNDAMENTALES DE BUENAS PRÁCTICAS DE MANUFACTURA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="garantía de calidad y alcance del plan maestro de documentación"
+    data-code="qf6034"
+    data-rest="-"
+    data-days="">
+<td>QF6034</td><td>GARANTÍA DE CALIDAD Y ALCANCE DEL PLAN MAESTRO DE DOCUMENTACIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="autoinspección, acciones correctivas y preventivas (capa) en los sistemas de gestión"
+    data-code="qf6035"
+    data-rest="-"
+    data-days="">
+<td>QF6035</td><td>AUTOINSPECCIÓN, ACCIONES CORRECTIVAS Y PREVENTIVAS (CAPA) EN LOS SISTEMAS DE GESTIÓN</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="plan maestro y conceptos de validación farmacéutica"
+    data-code="qf6036"
+    data-rest="-"
+    data-days="">
+<td>QF6036</td><td>PLAN MAESTRO Y CONCEPTOS DE VALIDACIÓN FARMACÉUTICA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="objetivos y alcance de la validación de procesos"
+    data-code="qf6037"
+    data-rest="-"
+    data-days="">
+<td>QF6037</td><td>OBJETIVOS Y ALCANCE DE LA VALIDACIÓN DE PROCESOS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="validación de sistemas críticos en la industria farmacéutica"
+    data-code="qf6038"
+    data-rest="-"
+    data-days="">
+<td>QF6038</td><td>VALIDACIÓN DE SISTEMAS CRÍTICOS EN LA INDUSTRIA FARMACÉUTICA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="aplicación de herramientas de mejoramiento, análisis de datos y herramientas estadísticas en bpm"
+    data-code="qf6039"
+    data-rest="-"
+    data-days="">
+<td>QF6039</td><td>APLICACIÓN DE HERRAMIENTAS DE MEJORAMIENTO, ANÁLISIS DE DATOS Y HERRAMIENTAS ESTADÍSTICAS EN BPM</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión efectiva del proceso de auditoría y práctica profesional"
+    data-code="qf6040"
+    data-rest="-"
+    data-days="">
+<td>QF6040</td><td>GESTIÓN EFECTIVA DEL PROCESO DE AUDITORÍA Y PRÁCTICA PROFESIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="competencia del personal e importancia del análisis de riesgos en buenas prácticas de manufactura"
+    data-code="qf6041"
+    data-rest="-"
+    data-days="">
+<td>QF6041</td><td>COMPETENCIA DEL PERSONAL E IMPORTANCIA DEL ANÁLISIS DE RIESGOS EN BUENAS PRÁCTICAS DE MANUFACTURA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="conceptos de estabilidad farmacéutica y mantenimiento preventivo"
+    data-code="qf6042"
+    data-rest="-"
+    data-days="">
+<td>QF6042</td><td>CONCEPTOS DE ESTABILIDAD FARMACÉUTICA Y MANTENIMIENTO PREVENTIVO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="tecnología avanzada e innovación farmacéutica"
+    data-code="qf6043"
+    data-rest="-"
+    data-days="">
+<td>QF6043</td><td>TECNOLOGÍA AVANZADA E INNOVACIÓN FARMACÉUTICA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="técnicas analíticas para el estudio de casos en manufactura farmacéutica"
+    data-code="qf6044"
+    data-rest="-"
+    data-days="">
+<td>QF6044</td><td>TÉCNICAS ANALÍTICAS PARA EL ESTUDIO DE CASOS EN MANUFACTURA FARMACÉUTICA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión de procesos farmacéuticos"
+    data-code="qf6045"
+    data-rest="-"
+    data-days="">
+<td>QF6045</td><td>GESTIÓN DE PROCESOS FARMACÉUTICOS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión de riesgos en la manufactura farmacéutica"
+    data-code="qf6046"
+    data-rest="-"
+    data-days="">
+<td>QF6046</td><td>GESTIÓN DE RIESGOS EN LA MANUFACTURA FARMACÉUTICA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="asuntos regulatorios y fundamentos de derecho farmacéutico en el ámbito internacional"
+    data-code="qf6047"
+    data-rest="-"
+    data-days="">
+<td>QF6047</td><td>ASUNTOS REGULATORIOS Y FUNDAMENTOS DE DERECHO FARMACÉUTICO EN EL ÁMBITO INTERNACIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="gestión estratégica y liderazgo"
+    data-code="qf6048"
+    data-rest="-"
+    data-days="">
+<td>QF6048</td><td>GESTIÓN ESTRATÉGICA Y LIDERAZGO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="proyecto integrador"
+    data-code="qf6049"
+    data-rest="-"
+    data-days="">
+<td>QF6049</td><td>PROYECTO INTEGRADOR</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="qq3028"
+    data-rest="licenciatura en quimica"
+    data-days="">
+<td>QQ3028</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN QUIMICA</td>
+</tr>
+
+<tr data-curso="estrategias de desarrollo sostenible"
+    data-code="ri6012"
+    data-rest="-"
+    data-days="">
+<td>RI6012</td><td>ESTRATEGIAS DE DESARROLLO SOSTENIBLE</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="derechos humanos en la agenda global"
+    data-code="ri6013"
+    data-rest="-"
+    data-days="">
+<td>RI6013</td><td>DERECHOS HUMANOS EN LA AGENDA GLOBAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="análisis de género e interseccionalidad para el desarrollo"
+    data-code="ri6014"
+    data-rest="-"
+    data-days="">
+<td>RI6014</td><td>ANÁLISIS DE GÉNERO E INTERSECCIONALIDAD PARA EL DESARROLLO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="métodos prospectivos socioambientales"
+    data-code="ri6015"
+    data-rest="-"
+    data-days="">
+<td>RI6015</td><td>MÉTODOS PROSPECTIVOS SOCIOAMBIENTALES</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="laboratorio de liderazgo"
+    data-code="ri6016"
+    data-rest="-"
+    data-days="">
+<td>RI6016</td><td>LABORATORIO DE LIDERAZGO</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="procesos de negociación internacional"
+    data-code="ri6017"
+    data-rest="-"
+    data-days="">
+<td>RI6017</td><td>PROCESOS DE NEGOCIACIÓN INTERNACIONAL</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="análisis estadístico para política"
+    data-code="ri6023"
+    data-rest="-"
+    data-days="">
+<td>RI6023</td><td>ANÁLISIS ESTADÍSTICO PARA POLÍTICA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="retos y estrategias contemporáneos del comercio internacional"
+    data-code="ri6024"
+    data-rest="-"
+    data-days="">
+<td>RI6024</td><td>RETOS Y ESTRATEGIAS CONTEMPORÁNEOS DEL COMERCIO INTERNACIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="estrategias de paz y seguridad global"
+    data-code="ri6025"
+    data-rest="-"
+    data-days="">
+<td>RI6025</td><td>ESTRATEGIAS DE PAZ Y SEGURIDAD GLOBAL</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="incidencia y comunicación política estratégica"
+    data-code="ri6026"
+    data-rest="-"
+    data-days="">
+<td>RI6026</td><td>INCIDENCIA Y COMUNICACIÓN POLÍTICA ESTRATÉGICA</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="diseño de política internacional y asuntos externos"
+    data-code="ri6027"
+    data-rest="-"
+    data-days="">
+<td>RI6027</td><td>DISEÑO DE POLÍTICA INTERNACIONAL Y ASUNTOS EXTERNOS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="trabajo de graduación 2"
+    data-code="sa4015"
+    data-rest="licenciatura en antropologia"
+    data-days="">
+<td>SA4015</td><td>TRABAJO DE GRADUACIÓN 2</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN ANTROPOLOGIA</td>
+</tr>
+
+<tr data-curso="supply chain fundamentals"
+    data-code="sc6001"
+    data-rest="-"
+    data-days="">
+<td>SC6001</td><td>SUPPLY CHAIN FUNDAMENTALS</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="strategic management"
+    data-code="sc6002"
+    data-rest="-"
+    data-days="">
+<td>SC6002</td><td>STRATEGIC MANAGEMENT</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="process management"
+    data-code="sc6004"
+    data-rest="-"
+    data-days="">
+<td>SC6004</td><td>PROCESS MANAGEMENT</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="supply chain finance"
+    data-code="sc6009"
+    data-rest="-"
+    data-days="">
+<td>SC6009</td><td>SUPPLY CHAIN FINANCE</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="modeling, simulation and data analytics"
+    data-code="sc6010"
+    data-rest="-"
+    data-days="">
+<td>SC6010</td><td>MODELING, SIMULATION AND DATA ANALYTICS</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="project management"
+    data-code="sc6013"
+    data-rest="-"
+    data-days="">
+<td>SC6013</td><td>PROJECT MANAGEMENT</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="quality management &amp; operation excellence"
+    data-code="sc6014"
+    data-rest="-"
+    data-days="">
+<td>SC6014</td><td>QUALITY MANAGEMENT & OPERATION EXCELLENCE</td><td>10</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>-</td>
+</tr>
+
+<tr data-curso="práctica profesional"
+    data-code="td3022"
+    data-rest="licenciatura en administracion de empresas con especializacion en transformacion digital"
+    data-days="">
+<td>TD3022</td><td>PRÁCTICA PROFESIONAL</td><td>11</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td>
+<td>-</td><td>-</td><td>-</td><td>-</td><td>LICENCIATURA EN ADMINISTRACION DE EMPRESAS CON ESPECIALIZACION EN TRANSFORMACION DIGITAL</td>
 </tr>
 
 </tbody>
